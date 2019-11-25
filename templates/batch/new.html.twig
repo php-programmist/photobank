@@ -1,11 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Batch{% endblock %}
+{% block title %}Новая папка{% endblock %}
 
 {% block body %}
-    <h1>Create new Batch</h1>
+    <h1>Добавить новую папку</h1>
 
     {{ include('batch/_form.html.twig') }}
 
-    <a href="{{ path('batch_index') }}">back to list</a>
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+    <script src="{{ asset('js/depended_lists.js') }}"></script>
 {% endblock %}

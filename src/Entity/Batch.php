@@ -56,9 +56,22 @@ class Batch
      */
     private $photos;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Brand", inversedBy="batches")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $brand;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ServiceCategory", inversedBy="batches")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $service_category;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -165,6 +178,30 @@ class Batch
                 $photo->setBatch(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBrand(): ?Brand
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(?Brand $brand): self
+    {
+        $this->brand = $brand;
+
+        return $this;
+    }
+
+    public function getServiceCategory(): ?ServiceCategory
+    {
+        return $this->service_category;
+    }
+
+    public function setServiceCategory(?ServiceCategory $service_category): self
+    {
+        $this->service_category = $service_category;
 
         return $this;
     }

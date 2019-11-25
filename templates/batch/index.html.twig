@@ -1,39 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Batch index{% endblock %}
+{% block title %}Список папок{% endblock %}
 
 {% block body %}
-    <h1>Batch index</h1>
-
+    <h1>Список папок</h1>
+    <a class="btn btn-success my-3" href="{{ path('batch_new') }}">Добавить папку</a>
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Folder</th>
-                <th>Domain</th>
-                <th>CreatedAt</th>
-                <th>actions</th>
+                <th>Папка</th>
+                <th>Домен</th>
+                <th>Дата создания</th>
             </tr>
         </thead>
         <tbody>
         {% for batch in batches %}
             <tr>
-                <td>{{ batch.id }}</td>
-                <td>{{ batch.folder }}</td>
+                <td><a href="{{ path('batch_edit', {'id': batch.id}) }}">{{ batch.id }}</a></td>
+                <td><a href="{{ path('batch_edit', {'id': batch.id}) }}">{{ batch.folder }}</a></td>
                 <td>{{ batch.domain }}</td>
                 <td>{{ batch.createdAt ? batch.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('batch_show', {'id': batch.id}) }}">show</a>
-                    <a href="{{ path('batch_edit', {'id': batch.id}) }}">edit</a>
-                </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">Папки не найдены</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('batch_new') }}">Create new</a>
+
 {% endblock %}

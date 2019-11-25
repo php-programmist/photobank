@@ -28,9 +28,15 @@ class Brand
      */
     private $models;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Batch", mappedBy="brand")
+     */
+    private $batches;
+
     public function __construct()
     {
         $this->models = new ArrayCollection();
+        $this->batches = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,6 +81,37 @@ class Brand
             // set the owning side to null (unless already changed)
             if ($model->getBrand() === $this) {
                 $model->setBrand(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Batch[]
+     */
+    public function getBatches(): Collection
+    {
+        return $this->batches;
+    }
+
+    public function addBatch(Batch $batch): self
+    {
+        if (!$this->batches->contains($batch)) {
+            $this->batches[] = $batch;
+            $batch->setBrand($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBatch(Batch $batch): self
+    {
+        if ($this->batches->contains($batch)) {
+            $this->batches->removeElement($batch);
+            // set the owning side to null (unless already changed)
+            if ($batch->getBrand() === $this) {
+                $batch->setBrand(null);
             }
         }
 

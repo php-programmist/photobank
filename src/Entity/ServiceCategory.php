@@ -28,9 +28,15 @@ class ServiceCategory
      */
     private $services;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Batch", mappedBy="service_category")
+     */
+    private $batches;
+
     public function __construct()
     {
         $this->services = new ArrayCollection();
+        $this->batches = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,6 +81,37 @@ class ServiceCategory
             // set the owning side to null (unless already changed)
             if ($service->getServiceCategory() === $this) {
                 $service->setServiceCategory(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Batch[]
+     */
+    public function getBatches(): Collection
+    {
+        return $this->batches;
+    }
+
+    public function addBatch(Batch $batch): self
+    {
+        if (!$this->batches->contains($batch)) {
+            $this->batches[] = $batch;
+            $batch->setServiceCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBatch(Batch $batch): self
+    {
+        if ($this->batches->contains($batch)) {
+            $this->batches->removeElement($batch);
+            // set the owning side to null (unless already changed)
+            if ($batch->getServiceCategory() === $this) {
+                $batch->setServiceCategory(null);
             }
         }
 

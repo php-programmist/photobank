@@ -1,0 +1,204 @@
+.dm-uploader {
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 0.25rem dashed #A5A5C7;
+    text-align: center;
+}
+
+
+.dm-uploader .btn input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    border: solid transparent;
+    width: 100%;
+    opacity: .0;
+    filter: alpha(opacity= 0);
+    cursor: pointer;
+}
+.row {
+    margin-bottom: 1rem;
+}
+[class*="col-"] {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+hr {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+#files {
+    overflow-y: scroll !important;
+    min-height: 320px;
+}
+@media (min-width: 768px) {
+    #files {
+        min-height: 0;
+    }
+}
+
+
+
+.dm-uploader.active {
+    border-color: red;
+
+    border-style: solid;
+}
+.p-5 {
+    padding: 3rem !important;
+}
+.text-muted {
+    color: #868e96 !important;
+}
+.mb-5, .my-5 {
+    margin-bottom: 3rem !important;
+}
+.mt-5, .my-5 {
+    margin-top: 3rem !important;
+}
+.btn:not([disabled]):not(.disabled) {
+    cursor: pointer;
+}
+.btn-block {
+    display: block;
+    width: 100%;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.dm-uploader .btn {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+[class*="col-"] {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.h-100 {
+    height: 100% !important;
+}
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+.card-header:first-child {
+    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+}
+.card-header {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+#files {
+    overflow-y: scroll !important;
+    min-height: 320px;
+}
+.p-2 {
+    padding: .5rem !important;
+}
+.flex-column {
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: normal !important;
+    -ms-flex-direction: column !important;
+    flex-direction: column !important;
+}
+.d-flex {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+}
+.col {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+}
+.media_uploader {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+.mb-1, .my-1 {
+    margin-bottom: .25rem !important;
+}
+.media-body {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+.progress {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 1rem;
+    overflow: hidden;
+    font-size: .75rem;
+    background-color: #e9ecef;
+    border-radius: .25rem;
+}
+
+.list-unstyled .empty{
+    background: none !important;
+}
+progress[value] {
+    width: 100%;
+    height: 20px;
+}
+.bg-danger{
+    background-color: red;
+}
+
+.preview-img {
+    width: 64px;
+    height: 64px;
+    vertical-align: middle;
+    border-style: none;
+}
+.mr-3, .mx-3 {
+    margin-right: 1rem !important;
+}
+.mb-2, .my-2 {
+    margin-bottom: .5rem !important;
+}

@@ -18,6 +18,21 @@ class ModelRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Model::class);
     }
+    /**
+     * @return Model[] Returns an array of Model objects
+     */
+    
+    public function findByBrand($brand_id)
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.brand = :brandid')
+            ->setParameter('brandid', $brand_id)
+            ->orderBy('m.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
 
     // /**
     //  * @return Model[] Returns an array of Model objects
