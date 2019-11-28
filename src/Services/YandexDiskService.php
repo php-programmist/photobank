@@ -104,8 +104,6 @@ class YandexDiskService
     
     public function moveFilesToNewFolder($old_folder, $new_folder)
     {
-        $new_folder = urlencode($new_folder);
-        $new_folder = str_replace('+','%20',$new_folder);
         if (! $this->diskClient) {
             return false;
         }
@@ -114,16 +112,24 @@ class YandexDiskService
             return false;
         }
         foreach ($files as $file) {
-            $this->moveFile('/'.$old_folder.'/'.$file->getDisplayName(),'/'.$new_folder.'/'.$file->getDisplayName());
+            $this->move('/' . $old_folder . '/' . $file->getDisplayName(), '/' . $new_folder . '/' . $file->getDisplayName());
         }
         return true;
     }
     
-    public function moveFile($old_path, $new_path)
+    public function move($old_path, $new_path)
     {
         if (! $this->diskClient) {
             return false;
         }
+        $new_path = $this->urlEncode($new_path);
         return $this->diskClient->move($old_path, $new_path);
+    }
+    
+    protected function urlEncode($path)
+    {
+        $path = urlencode($path);
+        $path = str_replace('+','%20',$path);
+        return str_replace('%2F','/',$path);
     }
 }

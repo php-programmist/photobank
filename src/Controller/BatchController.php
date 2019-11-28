@@ -106,20 +106,14 @@ class BatchController extends AbstractController
             if ($new_folder !== $old_folder) {
                 $batch->setFolder($new_folder);
                 try{
-                    $this->disk_service->createDirectory($new_folder);
-                } catch (\Exception $e){
-                    if ($e->getCode() !== 405) {
-                        $this->addFlash('danger',"Ошибка при создании папки: ".$e->getMessage());
-                    }
-                }
-                try{
-                    $this->disk_service->moveFilesToNewFolder($old_folder, $new_folder);
+                    $this->disk_service->move('/'.$old_folder.'/', '/'.$new_folder.'/');
+                    $this->getDoctrine()->getManager()->flush();
                     
                 } catch (\Exception $e){
                     $this->addFlash('danger',"Ошибка при перемещении файлов: ".$e->getMessage());
                 }
             }
-            $this->getDoctrine()->getManager()->flush();
+            
             
             return $this->redirectToRoute('batch_edit', ['id' => $batch->getId()]);
         }
