@@ -23,8 +23,10 @@ class BatchController extends AbstractController
      */
     public function index(BatchRepository $batchRepository): Response
     {
+        
         return $this->render('batch/index.html.twig', [
             'batches' => $batchRepository->findAll(),
+            'user'   => $this->getUser()
         ]);
     }
 

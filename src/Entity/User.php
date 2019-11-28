@@ -40,6 +40,16 @@ class User implements UserInterface
      */
     private $batches;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $yandex_token;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $yandex_token_expire;
+
     public function __construct()
     {
         $this->batches = new ArrayCollection();
@@ -152,5 +162,34 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    public function getYandexToken(): ?string
+    {
+        return $this->yandex_token;
+    }
+
+    public function setYandexToken(?string $yandex_token): self
+    {
+        $this->yandex_token = $yandex_token;
+
+        return $this;
+    }
+
+    public function getYandexTokenExpire(): ?\DateTimeInterface
+    {
+        return $this->yandex_token_expire;
+    }
+
+    public function setYandexTokenExpire(?\DateTimeInterface $yandex_token_expire): self
+    {
+        $this->yandex_token_expire = $yandex_token_expire;
+
+        return $this;
+    }
+    
+    public function hasValidToken():bool
+    {
+        return !empty($this->yandex_token) && $this->getYandexTokenExpire()->getTimestamp() > time();
     }
 }

@@ -4,7 +4,12 @@
 
 {% block body %}
     <h1>Список папок</h1>
-    <a class="btn btn-success my-3" href="{{ path('batch_new') }}">Добавить папку</a>
+    {% if user.validToken %}
+        <a class="btn btn-success my-3" href="{{ path('batch_new') }}">Добавить папку</a>
+    {% else %}
+        <a class="btn btn-success my-3" href="{{ path('yandex_auth') }}">Авторизация в Yandex.Disk</a>
+        <p class="alert alert-warning">Внимание! Прежде чем нажать кнопку, убедитесь, что в этом браузере Вы авторизованы как "r-qmotors"</p>
+    {% endif %}
     <table class="table">
         <thead>
             <tr>
