@@ -71,7 +71,7 @@ class Batch
     public function __construct()
     {
         $this->photos = new ArrayCollection();
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

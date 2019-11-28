@@ -17,6 +17,7 @@
                 <th>Папка</th>
                 <th>Домен</th>
                 <th>Дата создания</th>
+                <th>Фотографий</th>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +27,7 @@
                 <td><a href="{{ path('batch_edit', {'id': batch.id}) }}">{{ batch.folder }}</a></td>
                 <td>{{ batch.domain }}</td>
                 <td>{{ batch.createdAt ? batch.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ batch.photos|length }}</td>
             </tr>
         {% else %}
             <tr>

@@ -133,25 +133,7 @@ hr {
 .p-2 {
     padding: .5rem !important;
 }
-.flex-column {
-    -webkit-box-orient: vertical !important;
-    -webkit-box-direction: normal !important;
-    -ms-flex-direction: column !important;
-    flex-direction: column !important;
-}
-.d-flex {
-    display: -webkit-box !important;
-    display: -ms-flexbox !important;
-    display: flex !important;
-}
-.col {
-    -ms-flex-preferred-size: 0;
-    flex-basis: 0;
-    -webkit-box-flex: 1;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    max-width: 100%;
-}
+
 .media_uploader {
     display: -webkit-box;
     display: -ms-flexbox;

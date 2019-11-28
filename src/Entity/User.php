@@ -190,6 +190,6 @@ class User implements UserInterface
     
     public function hasValidToken():bool
     {
-        return !empty($this->yandex_token) && $this->getYandexTokenExpire()->getTimestamp() > time();
+        return !empty($this->yandex_token) && $this->getYandexTokenExpire() != null && $this->getYandexTokenExpire()->getTimestamp() > time();
     }
 }
