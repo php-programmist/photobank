@@ -104,6 +104,8 @@ class YandexDiskService
     
     public function moveFilesToNewFolder($old_folder, $new_folder)
     {
+        $new_folder = urlencode($new_folder);
+        $new_folder = str_replace('+','%20',$new_folder);
         if (! $this->diskClient) {
             return false;
         }

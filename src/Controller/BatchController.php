@@ -29,7 +29,6 @@ class BatchController extends AbstractController
     
     public function __construct(YandexDiskService $disk_service)
     {
-    
         $this->disk_service = $disk_service;
     }
     
@@ -105,7 +104,7 @@ class BatchController extends AbstractController
             $new_folder = $this->generateFolderName($batch);
             $old_folder = $batch->getFolder();
             if ($new_folder !== $old_folder) {
-                /*$batch->setFolder($new_folder);
+                $batch->setFolder($new_folder);
                 try{
                     $this->disk_service->createDirectory($new_folder);
                 } catch (\Exception $e){
@@ -118,7 +117,7 @@ class BatchController extends AbstractController
                     
                 } catch (\Exception $e){
                     $this->addFlash('danger',"Ошибка при перемещении файлов: ".$e->getMessage());
-                }*/
+                }
             }
             $this->getDoctrine()->getManager()->flush();
             
