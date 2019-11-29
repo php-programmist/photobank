@@ -106,7 +106,7 @@ class BatchController extends AbstractController
             if ($new_folder !== $old_folder) {
                 $batch->setFolder($new_folder);
                 try{
-                    $this->disk_service->move('/'.$old_folder.'/', '/'.$new_folder.'/');
+                    $this->disk_service->move($old_folder.'/', $new_folder.'/');
                     $this->getDoctrine()->getManager()->flush();
                     
                 } catch (\Exception $e){
@@ -131,7 +131,15 @@ class BatchController extends AbstractController
     public function delete(Request $request, Batch $batch): Response
     {
         if ($this->isCsrfTokenValid('delete' . $batch->getId(), $request->request->get('_token'))) {
+            /*if (!$this->disk_service->delete($batch->getFolder().'/')) {
+                $this->addFlash('danger','Не удалось удалить папку на диске');
+                return $this->redirectToRoute('batch_edit', ['id' => $batch->getId()]);
+            }*/
             $entityManager = $this->getDoctrine()->getManager();
+            foreach ($batch->getPhotos() as $photo){
+                //$this->disk_service->delete($batch->getFolder().'/'.$photo->getPath());
+                $entityManager->remove($photo);
+            }
             $entityManager->remove($batch);
             $entityManager->flush();
         }

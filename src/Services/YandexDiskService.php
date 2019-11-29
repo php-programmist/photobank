@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\DTO\YandexFileDto;
 use App\Entity\User;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Security\Core\Security;
 use Yandex\Disk\DiskClient;
 
@@ -13,10 +14,14 @@ class YandexDiskService
     private $user;
     /**@var DiskClient*/
     private $diskClient = null;
+    private $root_dir;
     
-    public function __construct(Security $security)
+    public function __construct(Security $security,ParameterBagInterface $params)
     {
         $this->user = $security->getUser();
+        $yandex           = $params->get('yandex');
+        $this->root_dir = '/'.$yandex['root_dir'].'/';
+        $this->root_dir = preg_replace('#\/+#','/',$this->root_dir);
         if ($this->user && $this->user->hasValidToken()) {
             $this->diskClient = new DiskClient($this->user->getYandexToken());
             $this->diskClient->setServiceScheme(DiskClient::HTTPS_SCHEME);
@@ -61,7 +66,7 @@ class YandexDiskService
             return false;
         }
         $response = $this->diskClient->uploadFile(
-            '/'.$folder.'/',
+            $this->root_dir.$folder.'/',
             array(
                 'path' => $path_to_file,
                 'size' => filesize($path_to_file),
@@ -77,7 +82,7 @@ class YandexDiskService
         if (! $this->diskClient) {
             return false;
         }
-        $this->diskClient->createDirectory($folder);
+        $this->diskClient->createDirectory($this->root_dir.$folder);
         return true;
     }
     
@@ -91,7 +96,7 @@ class YandexDiskService
         if (! $this->diskClient) {
             return [];
         }
-        $dirContent = $this->diskClient->directoryContents($folder);
+        $dirContent = $this->diskClient->directoryContents($this->root_dir.$folder);
         $files=[];
         foreach ($dirContent as $dirItem) {
             if ($dirItem['resourceType'] !== 'dir') {
@@ -112,7 +117,7 @@ class YandexDiskService
             return false;
         }
         foreach ($files as $file) {
-            $this->move('/' . $old_folder . '/' . $file->getDisplayName(), '/' . $new_folder . '/' . $file->getDisplayName());
+            $this->move( $old_folder . '/' . $file->getDisplayName(),  $new_folder . '/' . $file->getDisplayName());
         }
         return true;
     }
@@ -123,7 +128,15 @@ class YandexDiskService
             return false;
         }
         $new_path = $this->urlEncode($new_path);
-        return $this->diskClient->move($old_path, $new_path);
+        return $this->diskClient->move($this->root_dir.$old_path, $this->root_dir.$new_path);
+    }
+    
+    public function delete($path)
+    {
+        if (! $this->diskClient) {
+            return false;
+        }
+        return $this->diskClient->delete($this->root_dir.$path);
     }
     
     protected function urlEncode($path)
