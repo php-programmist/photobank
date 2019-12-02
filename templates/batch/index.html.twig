@@ -4,24 +4,34 @@
 
 {% block body %}
     <h1>Список папок</h1>
+    <h3>Всего: {{ pagination.getTotalItemCount }}</h3>
+    <button class="btn btn-info my-3 toggle-hidden" data-selector="#filter">Фильтр</button>
+    {#Фильтр. Начало#}
+    <div id="filter" style="display:none;">
+        {{ form_start(formFilter) }}
+        <button type="submit" class="btn btn-primary">Найти</button>
+        {{ form_widget(formFilter) }}
+        <button type="submit" class="btn btn-primary">Найти</button>
+        {{ form_end(formFilter) }}
+    </div>
+    {#Фильтр. Конец#}
     {% if user.validToken %}
         <a class="btn btn-success my-3" href="{{ path('batch_new') }}">Добавить папку</a>
     {% else %}
         <a class="btn btn-success my-3" href="{{ path('yandex_auth') }}">Авторизация в Yandex.Disk</a>
-        <p class="alert alert-warning">Внимание! Прежде чем нажать кнопку, убедитесь, что в этом браузере Вы авторизованы как "r-qmotors"</p>
     {% endif %}
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Папка</th>
-                <th>Домен</th>
-                <th>Дата создания</th>
-                <th>Фотографий</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Папка</th>
+            <th>Домен</th>
+            <th>Дата создания</th>
+            <th>Фотографий</th>
+        </tr>
         </thead>
         <tbody>
-        {% for batch in batches %}
+        {% for batch in pagination %}
             <tr>
                 <td><a href="{{ path('batch_edit', {'id': batch.id}) }}">{{ batch.id }}</a></td>
                 <td><a href="{{ path('batch_edit', {'id': batch.id}) }}">{{ batch.folder }}</a></td>
@@ -36,6 +46,12 @@
         {% endfor %}
         </tbody>
     </table>
+    {{ knp_pagination_render(pagination) }}
 
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/depended_lists.js') }}"></script>
 {% endblock %}

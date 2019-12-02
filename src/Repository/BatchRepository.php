@@ -18,7 +18,56 @@ class BatchRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Batch::class);
     }
-
+    
+    public function getAllFilteredQB(?Batch $filterData,$using,$year_month)
+    {
+        $qb = $this->createQueryBuilder('b')
+                   ->orderBy('b.id', 'ASC');
+        if ($using) {
+            if ($using == 1 ) {
+                $qb->andWhere('b.domain IS NULL');
+            }else{
+                $qb->andWhere('b.domain IS NOT NULL');
+            }
+        }
+        if ($year_month) {
+            [$year,$month] = explode('-',$year_month);
+            if ($month === null) {
+                $month = (int) date('m');
+            }
+    
+            if ($year === null) {
+                $year = (int) date('Y');
+            }
+            $startDate = new \DateTimeImmutable("$year-$month-01T00:00:00");
+            $endDate = $startDate->modify('last day of this month')->setTime(23, 59, 59);
+            $qb->andWhere('b.createdAt BETWEEN :start AND :end')
+               ->setParameter('start', $startDate)
+               ->setParameter('end', $endDate);
+        }
+        if ($filterData) {
+            if ($filterData->getBrand()) {
+                $qb->andWhere('b.brand = :brand')
+                   ->setParameter('brand', $filterData->getBrand()->getId());
+            }
+            if ($filterData->getModel()) {
+                $qb->andWhere('b.model = :model')
+                   ->setParameter('model', $filterData->getModel()->getId());
+            }
+            if ($filterData->getServiceCategory()) {
+                $qb->andWhere('b.service_category = :service_category')
+                   ->setParameter('service_category', $filterData->getServiceCategory()->getId());
+            }
+            if ($filterData->getService()) {
+                $qb->andWhere('b.service = :service')
+                   ->setParameter('service', $filterData->getService()->getId());
+            }
+            
+        }
+    
+        return $qb;
+    }
+    
     // /**
     //  * @return Batch[] Returns an array of Batch objects
     //  */

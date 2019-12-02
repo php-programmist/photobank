@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Batch;
 use App\Entity\Photo;
+use App\Form\BatchFilterType;
 use App\Form\BatchType;
 use App\Repository\BatchRepository;
 use App\Repository\ModelRepository;
 use App\Repository\ServiceRepository;
 use App\Services\YandexDiskService;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -35,12 +37,28 @@ class BatchController extends AbstractController
     /**
      * @Route("/", name="batch_index", methods={"GET"})
      */
-    public function index(BatchRepository $batchRepository): Response
+    public function index(BatchRepository $batchRepository,PaginatorInterface $paginator,Request $request): Response
     {
+        $batch = new Batch();
+        $formFilter = $this->createForm(BatchFilterType::class, $batch,[
+            'method' => 'GET',
+            'required' => false,
+        ]);
+        $formFilter->handleRequest($request);
+        $filterData = $formFilter->getData();
+        $using = $formFilter['using']->getData();
+        $year_month = $formFilter['year_month']->getData();
+        
+        $pagination = $paginator->paginate(
+            $batchRepository->getAllFilteredQB($filterData,$using,$year_month), /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            100/*limit per page*/
+        );
         
         return $this->render('batch/index.html.twig', [
-            'batches' => $batchRepository->findAll(),
             'user'    => $this->getUser(),
+            'pagination' => $pagination,
+            'formFilter' => $formFilter->createView(),
         ]);
     }
     
