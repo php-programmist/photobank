@@ -7,7 +7,7 @@ parameters:
     yandex:
         client_id: '%env(resolve:YANDEX_CLIENT_ID)%'
         secret_key: '%env(resolve:YANDEX_SECRET_KEY)%'
-        root_dir: 'QMotors'
+        root_dir: '%env(resolve:YANDEX_ROOT_FOLDER)%'
 services:
     # default configuration for services in *this* file
     _defaults:
