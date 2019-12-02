@@ -7,8 +7,10 @@ class YandexFileDto
     protected $displayName;
     protected $contentLength;
     protected $creationDate;
+    protected $imageData;
+    protected $imageType;
     
-    public function __construct($displayName,$contentLength,$creationDate)
+    public function __construct($displayName,$contentLength,$creationDate,$imageData,$imageType)
     {
     
         $this->displayName = $displayName;
@@ -17,6 +19,8 @@ class YandexFileDto
             'Y-m-d в H:i:s',
             strtotime($creationDate)
         );
+        $this->imageData = base64_encode($imageData);
+        $this->imageType = $imageType;
     }
     
     /**
@@ -41,5 +45,21 @@ class YandexFileDto
     public function getCreationDate()
     {
         return $this->creationDate;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getImageData(): string
+    {
+        return $this->imageData;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getImageType()
+    {
+        return $this->imageType;
     }
 }

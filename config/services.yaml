@@ -5,9 +5,10 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     yandex:
-        client_id: '%env(resolve:YANDEX_CLIENT_ID)%'
-        secret_key: '%env(resolve:YANDEX_SECRET_KEY)%'
-        root_dir: '%env(resolve:YANDEX_ROOT_FOLDER)%'
+        client_id: '%env(string:YANDEX_CLIENT_ID)%'
+        secret_key: '%env(string:YANDEX_SECRET_KEY)%'
+        root_dir: '%env(string:YANDEX_ROOT_FOLDER)%'
+        preview_size: '%env(string:YANDEX_PREVIEW_SIZE)%'
 services:
     # default configuration for services in *this* file
     _defaults:

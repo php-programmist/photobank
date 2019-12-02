@@ -18,12 +18,14 @@
         <h2>Имеющиеся файлы</h2>
         <table class="table table-striped">
             <tr>
+                <th>Миниатюра</th>
                 <th>Название</th>
                 <th>Размер</th>
                 <th>Загружен</th>
             </tr>
             {% for file in files %}
             <tr>
+                <td><img src="data:{{ file.imageType }};base64,{{ file.imageData }}" alt="{{ file.displayName }}"></td>
                 <td>{{ file.displayName }}</td>
                 <td>{{ file.contentLength }} КБ</td>
                 <td>{{ file.creationDate }}</td>

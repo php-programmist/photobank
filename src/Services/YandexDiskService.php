@@ -15,11 +15,13 @@ class YandexDiskService
     /**@var DiskClient*/
     private $diskClient = null;
     private $root_dir;
+    private $preview_size;
     
     public function __construct(Security $security,ParameterBagInterface $params)
     {
         $this->user = $security->getUser();
         $yandex           = $params->get('yandex');
+        $this->preview_size = $yandex['preview_size']?:'XS';
         $this->root_dir = '/'.$yandex['root_dir'].'/';
         $this->root_dir = preg_replace('#\/+#','/',$this->root_dir);
         if ($this->user && $this->user->hasValidToken()) {
@@ -100,8 +102,9 @@ class YandexDiskService
         $files=[];
         foreach ($dirContent as $dirItem) {
             if ($dirItem['resourceType'] !== 'dir') {
+                $preview = $this->diskClient->getImagePreview($this->root_dir.$folder.'/'.$dirItem['displayName'], $this->preview_size);
                 $files[] = new YandexFileDto($dirItem['displayName'], $dirItem['contentLength'],
-                    $dirItem['creationDate']);
+                    $dirItem['creationDate'],$preview['body'],$preview['headers']['content-type']);
             }
         }
         return $files;
