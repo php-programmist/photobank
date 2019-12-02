@@ -101,13 +101,16 @@ class BatchController extends AbstractController
             $files=[];
         }
         if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            //Сохраняем домен
+            $em->flush();
             $new_folder = $this->generateFolderName($batch);
             $old_folder = $batch->getFolder();
             if ($new_folder !== $old_folder) {
-                $batch->setFolder($new_folder);
                 try{
                     $this->disk_service->move($old_folder.'/', $new_folder.'/');
-                    $this->getDoctrine()->getManager()->flush();
+                    $batch->setFolder($new_folder);
+                    $em->flush();
                     
                 } catch (\Exception $e){
                     $this->addFlash('danger',"Ошибка при перемещении файлов: ".$e->getMessage());
