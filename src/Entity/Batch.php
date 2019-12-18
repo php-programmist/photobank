@@ -68,6 +68,11 @@ class Batch
      */
     private $service_category;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $comment;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -202,6 +207,18 @@ class Batch
     public function setServiceCategory(?ServiceCategory $service_category): self
     {
         $this->service_category = $service_category;
+
+        return $this;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): self
+    {
+        $this->comment = $comment;
 
         return $this;
     }
