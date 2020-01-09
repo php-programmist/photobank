@@ -55,10 +55,15 @@ class BatchController extends AbstractController
             $request->query->getInt('page', 1)/*page number*/,
             100/*limit per page*/
         );
-        
+        $total_photos = 0;
+        /** @var Batch $item */
+        foreach ($pagination as $item) {
+            $total_photos+=$item->getPhotos()->count();
+        }
         return $this->render('batch/index.html.twig', [
             'user'    => $this->getUser(),
             'pagination' => $pagination,
+            'total_photos' => $total_photos,
             'formFilter' => $formFilter->createView(),
         ]);
     }
