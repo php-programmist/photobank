@@ -13,6 +13,7 @@ use App\Repository\TypeRepository;
 use App\Services\YandexDiskService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +39,7 @@ class BatchController extends AbstractController
     /**
      * @Route("/", name="batch_index", methods={"GET"})
      */
-    public function index(BatchRepository $batchRepository,PaginatorInterface $paginator,Request $request): Response
+    public function index(BatchRepository $batchRepository,PaginatorInterface $paginator,Request $request,ParameterBagInterface $params): Response
     {
         $batch = new Batch();
         $formFilter = $this->createForm(BatchFilterType::class, $batch,[
@@ -60,10 +61,16 @@ class BatchController extends AbstractController
         foreach ($pagination as $item) {
             $total_photos+=$item->getPhotos()->count();
         }
+    
+        $yandex           = $params->get('yandex');
+        $root_dir = '/'.$yandex['root_dir'].'/';
+        $root_dir = preg_replace('#\/+#','/',$root_dir);
+        
         return $this->render('batch/index.html.twig', [
             'user'    => $this->getUser(),
             'pagination' => $pagination,
             'total_photos' => $total_photos,
+            'root_dir' => $root_dir,
             'formFilter' => $formFilter->createView(),
         ]);
     }

@@ -28,6 +28,7 @@
             <th>Домен</th>
             <th>Дата создания</th>
             <th>Фотографий ({{ total_photos }})</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -38,6 +39,7 @@
                 <td>{{ batch.domain }}</td>
                 <td>{{ batch.createdAt ? batch.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ batch.photos|length }}</td>
+                <td><a target="_blank" href="https://disk.yandex.ua/client/disk{{ root_dir }}{{ batch.folder }}"><i class="fa fa-folder-open"></i></a></td>
             </tr>
         {% else %}
             <tr>
