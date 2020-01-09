@@ -9,6 +9,7 @@ use App\Form\BatchType;
 use App\Repository\BatchRepository;
 use App\Repository\ModelRepository;
 use App\Repository\ServiceRepository;
+use App\Repository\TypeRepository;
 use App\Services\YandexDiskService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

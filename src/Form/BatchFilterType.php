@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use App\Entity\Type;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -26,6 +28,7 @@ class BatchFilterType extends DependedListsType
                 'multiple'=> false,
                 'mapped' => false]
         );
+        $builder->add('type',EntityType::class,['label'=>'Материал','required'=>false,'class'=>Type::class]);
         parent::buildForm($builder,$options);
     }
     

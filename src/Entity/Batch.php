@@ -73,6 +73,11 @@ class Batch
      */
     private $comment;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="batches")
+     */
+    private $type;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -219,6 +224,18 @@ class Batch
     public function setComment(?string $comment): self
     {
         $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

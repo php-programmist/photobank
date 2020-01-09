@@ -46,6 +46,10 @@ class BatchRepository extends ServiceEntityRepository
                ->setParameter('end', $endDate);
         }
         if ($filterData) {
+            if ($filterData->getType()) {
+                $qb->andWhere('b.type = :type')
+                   ->setParameter('type', $filterData->getType()->getId());
+            }
             if ($filterData->getBrand()) {
                 $qb->andWhere('b.brand = :brand')
                    ->setParameter('brand', $filterData->getBrand()->getId());
