@@ -5,7 +5,7 @@ $(document).ready(function () {
 	let batch_id = result[1];
 	$(".dm-uploader").dmUploader({
 		url: '/batch/api/upload-images/'+batch_id,
-		extFilter: ["jpg", "jpeg", "png", "gif"],
+		extFilter: ["jpg", "jpeg", "png", "gif", "mp4", "avi", "mkv", "ogg"],
 		dataType: "json",
 		onFileExtError: function (file) {
 			alert("Загрузка файла '" + file.name + "' запрещена!");
