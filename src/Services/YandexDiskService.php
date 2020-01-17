@@ -148,4 +148,9 @@ class YandexDiskService
         $path = str_replace('+','%20',$path);
         return str_replace('%2F','/',$path);
     }
+    
+    public function publishFolder($folder)
+    {
+        return $this->diskClient->startPublishing($this->root_dir.$folder);
+    }
 }

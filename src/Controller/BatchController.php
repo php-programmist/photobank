@@ -97,6 +97,8 @@ class BatchController extends AbstractController
             } catch (\Exception $e){
                 $this->addFlash('danger',"Ошибка при создании папки: ".$e->getMessage());
             }
+            $link = $this->disk_service->publishFolder($batch->getFolder());
+            $batch->setLink($link);
             $entityManager->flush();
             
             return $this->redirectToRoute('batch_edit', ['id' => $batch->getId()]);
@@ -106,6 +108,21 @@ class BatchController extends AbstractController
             'batch' => $batch,
             'form'  => $form->createView(),
         ]);
+    }
+    
+    /**
+     * @Route("/publish_folders", name="publish_folders", methods={"GET"})
+     */
+    public function publish_folders(BatchRepository $batchRepository): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $batches = $batchRepository->findAll();
+        foreach ($batches as $batch) {
+            $link = $this->disk_service->publishFolder($batch->getFolder());
+            $batch->setLink($link);
+        }
+        $em->flush();
+        return new Response('Ok');
     }
     
     /**

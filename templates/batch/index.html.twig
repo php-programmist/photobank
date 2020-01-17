@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Список папок{% endblock %}
+{% block title %}Фотобанк Кволити Моторс{% endblock %}
 
 {% block body %}
     <h1>Список папок</h1>
@@ -39,7 +39,7 @@
                 <td>{{ batch.domain }}</td>
                 <td>{{ batch.createdAt ? batch.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ batch.photos|length }}</td>
-                <td><a target="_blank" href="https://disk.yandex.ua/client/disk{{ root_dir }}{{ batch.folder }}"><i class="fa fa-folder-open"></i></a></td>
+                <td><a target="_blank" href="{{ batch.link }}"><i class="fa fa-folder-open"></i></a></td>
             </tr>
         {% else %}
             <tr>
