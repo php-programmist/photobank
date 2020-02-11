@@ -266,7 +266,11 @@ class BatchController extends AbstractController
      */
     private function generateFolderName($batch): string
     {
-        return $batch->getId() . '_' . $batch->getBrand()->getName() . '_' . $batch->getModel()->getName() . '_' . $batch->getServiceCategory()->getName() . '_' . $batch->getService()->getName();
+        $folder_name = $batch->getId() . '_' . $batch->getBrand()->getName() . '_' . $batch->getModel()->getName() . '_' . $batch->getServiceCategory()->getName() . '_' . $batch->getService()->getName();
+        if ($batch->getName()) {
+            $folder_name.= ' ('.$batch->getName().')';
+        }
+        return $folder_name;
         
     }
     

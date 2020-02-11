@@ -12,6 +12,7 @@ class BatchType extends DependedListsType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $builder->add('name',TextType::class,['label'=>'Название (не обязательно)','required'=>false]);
         $builder->add('domain',TextType::class,['label'=>'Домен (не обязательно)','required'=>false]);
         $builder->add('comment',TextareaType::class,['label'=>'Комментарий (не обязательно)','required'=>false]);
         $builder->add('type',EntityType::class,['label'=>'Материал','required'=>true,'class'=>Type::class]);
