@@ -1,0 +1,88 @@
+easy_admin:
+    site_name: 'Админ-панель'
+    design:
+        assets:
+            css:
+                - 'css/admin.css'
+            js:
+                - 'js/apply_button.js'
+                - 'js/cache_clear.js'
+        menu:
+
+            - { label: 'Марки', icon: 'car', entity: 'Brand' }
+            - { label: 'Модели', icon: 'car', entity: 'Model' }
+            - { label: 'Категории услуг', icon: 'sitemap', entity: 'ServiceCategory' }
+            - { label: 'Услуги', icon: 'wrench', entity: 'Service' }
+            - { label: 'Пользователи', icon: 'user', entity: 'User' }
+
+    list:
+        max_results: 100
+    show:
+        max_results: 100
+    entities:
+        Brand:
+            class: App\Entity\Brand
+            label: "Марка"
+            list:
+                 fields:
+                    - id
+                    - { property: 'name', label: 'Название' }
+            form:
+                 fields:
+                    - { property: 'name', label: 'Название' }
+        ServiceCategory:
+            class: App\Entity\ServiceCategory
+            label: "Категория услуг"
+            list:
+                 fields:
+                    - id
+                    - { property: 'name', label: 'Название' }
+            form:
+                 fields:
+                    - { property: 'name', label: 'Название' }
+        Model:
+            class: App\Entity\Model
+            label: "Модель"
+            list:
+                 fields:
+                    - id
+                    - { property: 'name', label: 'Название' }
+                    - { property: 'brand.name', label: 'Марка' }
+            form:
+                 fields:
+                    - { property: 'name', label: 'Название' }
+                    - { property: 'brand', label: 'Марка' }
+        Service:
+            class: App\Entity\Service
+            label: "Услуга"
+            list:
+                 fields:
+                    - id
+                    - { property: 'name', label: 'Название' }
+                    - { property: 'serviceCategory.name', label: 'Категория' }
+            form:
+                 fields:
+                    - { property: 'name', label: 'Название' }
+                    - { property: 'serviceCategory', label: 'Категория'}
+        User:
+            class: App\Entity\User
+            label: "Пользователь"
+            list:
+                 fields:
+                    - id
+                    - { property: 'email', label: 'Логин' }
+                    - { property: 'roles', label: 'Роли' }
+            form:
+                 fields:
+                     - { property: 'email', label: 'Логин', type: 'text' }
+                     - { property: 'yandexToken', label: 'Токен Yandex' }
+                     - { property: 'yandexTokenExpire', label: 'Токен годен до', type_options: { widget: 'single_text' } }
+                     - { property: 'plainPassword', label: 'Новый пароль', type: 'password' }
+                     -   property: 'roles'
+                         type: 'choice'
+                         label: 'Роли'
+                         type_options:
+                             mapped: true
+                             expanded: true
+                             multiple: true
+                             choices: { 'Только просмотр': 'ROLE_USER','Добавление и удаление': 'ROLE_EDITOR', 'Администратор': 'ROLE_ADMIN' }

@@ -27,7 +27,7 @@ class Service
      * @ORM\ManyToOne(targetEntity="App\Entity\ServiceCategory", inversedBy="services")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $service_category;
+    private $serviceCategory;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Batch", mappedBy="service")
@@ -58,12 +58,12 @@ class Service
 
     public function getServiceCategory(): ?ServiceCategory
     {
-        return $this->service_category;
+        return $this->serviceCategory;
     }
 
-    public function setServiceCategory(?ServiceCategory $service_category): self
+    public function setServiceCategory(?ServiceCategory $serviceCategory): self
     {
-        $this->service_category = $service_category;
+        $this->serviceCategory = $serviceCategory;
 
         return $this;
     }
@@ -97,5 +97,10 @@ class Service
         }
 
         return $this;
+    }
+    
+    public function __toString()
+    {
+        return (string)$this->getName();
     }
 }

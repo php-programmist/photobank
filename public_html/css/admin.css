@@ -1,0 +1,23 @@
+:root {
+    /* make the backend contents as wide as the browser window */
+    --body-max-width: 100%;
+}
+.select2-container--bootstrap .select2-selection{
+    max-width: 650px;
+}
+span.select2.select2-container.select2-container--bootstrap{
+    width: 650px!important;
+}
+.header_custom_menu{
+    display: flex;
+}
+.header_custom_menu > div{
+    margin: 0px 20px;
+}
+.header_custom_menu .btn-primary a{
+    color: white;
+}
+.header_custom_menu .alert{
+    display: none;
+    padding: 3px 1.25rem;
+}

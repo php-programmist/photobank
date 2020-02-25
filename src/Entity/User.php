@@ -43,12 +43,14 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $yandex_token;
+    private $yandexToken;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $yandex_token_expire;
+    private $yandexTokenExpire;
+    
+    private $plainPassword;
 
     public function __construct()
     {
@@ -130,7 +132,7 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 
     /**
@@ -166,30 +168,51 @@ class User implements UserInterface
 
     public function getYandexToken(): ?string
     {
-        return $this->yandex_token;
+        return $this->yandexToken;
     }
 
-    public function setYandexToken(?string $yandex_token): self
+    public function setYandexToken(?string $yandexToken): self
     {
-        $this->yandex_token = $yandex_token;
+        $this->yandexToken = $yandexToken;
 
         return $this;
     }
 
     public function getYandexTokenExpire(): ?\DateTimeInterface
     {
-        return $this->yandex_token_expire;
+        return $this->yandexTokenExpire;
     }
 
-    public function setYandexTokenExpire(?\DateTimeInterface $yandex_token_expire): self
+    public function setYandexTokenExpire(?\DateTimeInterface $yandexTokenExpire): self
     {
-        $this->yandex_token_expire = $yandex_token_expire;
+        $this->yandexTokenExpire = $yandexTokenExpire;
 
         return $this;
     }
     
     public function hasValidToken():bool
     {
-        return !empty($this->yandex_token) && $this->getYandexTokenExpire() != null && $this->getYandexTokenExpire()->getTimestamp() > time();
+        return !empty($this->yandexToken) && $this->getYandexTokenExpire() != null && $this->getYandexTokenExpire()->getTimestamp() > time();
+    }
+    
+    public function __toString()
+    {
+        return $this->getUsername();
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+    
+    /**
+     * @param mixed $plainPassword
+     */
+    public function setPlainPassword($plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
     }
 }

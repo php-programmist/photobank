@@ -24,7 +24,7 @@ class ServiceCategory
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Service", mappedBy="service_category")
+     * @ORM\OneToMany(targetEntity="App\Entity\Service", mappedBy="serviceCategory")
      */
     private $services;
 
@@ -116,5 +116,10 @@ class ServiceCategory
         }
 
         return $this;
+    }
+    
+    public function __toString()
+    {
+        return (string)$this->getName();
     }
 }
