@@ -10,8 +10,10 @@
 
 {% block body %}
     <h1>Редактировать папку</h1>
-    {{ include('batch/_delete_form.html.twig') }}
-
+    {% if is_granted('ROLE_EDITOR_DELETE') %}
+        {{ include('batch/_delete_form.html.twig') }}
+    {% endif %}
+    <a target="_blank" class="btn btn-primary" href="{{ batch.link }}"><i class="fa fa-folder-open"></i> Я.Диск</a>
     {{ include('batch/_form.html.twig', {'button_label': 'Обновить'}) }}
 
     {% if files|length > 0 %}
@@ -33,7 +35,10 @@
             {% endfor %}
         </table>
     {% endif %}
-    {{ include('batch/_drop_zone.html.twig') }}
+    {% if is_granted('ROLE_EDITOR_ADD') %}
+        {{ include('batch/_drop_zone.html.twig') }}
+    {% endif %}
+
 {% endblock %}
 
 {% block javascripts %}

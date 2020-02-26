@@ -12,6 +12,7 @@ use App\Repository\ServiceRepository;
 use App\Repository\TypeRepository;
 use App\Services\YandexDiskService;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -77,6 +78,7 @@ class BatchController extends AbstractController
     
     /**
      * @Route("/new", name="batch_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_EDITOR_ADD")
      */
     public function new(Request $request): Response
     {
@@ -178,6 +180,7 @@ class BatchController extends AbstractController
     
     /**
      * @Route("/{id}", name="batch_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_EDITOR_DELETE")
      */
     public function delete(Request $request, Batch $batch): Response
     {
@@ -234,6 +237,7 @@ class BatchController extends AbstractController
     
     /**
      * @Route("/api/upload-images/{id}", name="batch_api_upload-images", methods={"POST"})
+     * @IsGranted("ROLE_EDITOR_ADD")
      */
     public function uploadImages(Request $request,YandexDiskService $disk_service, Batch $batch): JsonResponse
     {

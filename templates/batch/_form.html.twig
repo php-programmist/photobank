@@ -1,7 +1,9 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
 <div class="row">
-    <button class="btn btn-success">{{ button_label|default('Далее') }}</button>
+    {% if is_granted('ROLE_EDITOR_EDIT') %}
+        <button class="btn btn-success">{{ button_label|default('Далее') }}</button>
+    {% endif %}
     <a class="btn btn-info ml-3" href="{{ path('batch_index') }}">Назад к списку</a>
 </div>
 
