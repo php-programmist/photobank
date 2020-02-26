@@ -92,7 +92,7 @@ class DependedListsType extends AbstractType
             $service_repository = $this->em->getRepository(Service::class);
             
             $services = $service_repository->createQueryBuilder("q")
-                                           ->where("q.service_category = :category_id")
+                                           ->where("q.serviceCategory = :category_id")
                                            ->setParameter("category_id", $category->getId())
                                            ->getQuery()
                                            ->getResult();

@@ -67,7 +67,7 @@ class Batch
      * @ORM\ManyToOne(targetEntity="App\Entity\ServiceCategory", inversedBy="batches")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $service_category;
+    private $serviceCategory;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -221,12 +221,12 @@ class Batch
 
     public function getServiceCategory(): ?ServiceCategory
     {
-        return $this->service_category;
+        return $this->serviceCategory;
     }
 
-    public function setServiceCategory(?ServiceCategory $service_category): self
+    public function setServiceCategory(?ServiceCategory $serviceCategory): self
     {
-        $this->service_category = $service_category;
+        $this->serviceCategory = $serviceCategory;
 
         return $this;
     }

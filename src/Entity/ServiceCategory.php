@@ -29,7 +29,7 @@ class ServiceCategory
     private $services;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Batch", mappedBy="service_category")
+     * @ORM\OneToMany(targetEntity="App\Entity\Batch", mappedBy="serviceCategory")
      */
     private $batches;
 

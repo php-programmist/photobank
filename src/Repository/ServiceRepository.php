@@ -24,7 +24,7 @@ class ServiceRepository extends ServiceEntityRepository
     public function findByCategory($category_id)
     {
         return $this->createQueryBuilder('m')
-                    ->andWhere('m.service_category = :category_id')
+                    ->andWhere('m.serviceCategory = :category_id')
                     ->setParameter('category_id', $category_id)
                     ->orderBy('m.name', 'ASC')
                     ->getQuery()
