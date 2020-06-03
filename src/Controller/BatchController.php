@@ -53,7 +53,7 @@ class BatchController extends AbstractController
         $year_month = $formFilter['year_month']->getData();
         
         $pagination = $paginator->paginate(
-            $batchRepository->getAllFilteredQB($filterData,$using,$year_month), /* query NOT result */
+            $batchRepository->getAllFilteredQB($filterData,$using,$year_month,$request), /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             100/*limit per page*/
         );

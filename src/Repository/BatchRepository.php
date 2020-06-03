@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Batch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @method Batch|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,10 +20,9 @@ class BatchRepository extends ServiceEntityRepository
         parent::__construct($registry, Batch::class);
     }
     
-    public function getAllFilteredQB(?Batch $filterData,$using,$year_month)
+    public function getAllFilteredQB(?Batch $filterData,$using,$year_month,Request $request)
     {
-        $qb = $this->createQueryBuilder('b')
-                   ->orderBy('b.id', 'ASC');
+        $qb = $this->createQueryBuilder('b');
         if ($using) {
             if ($using == 1 ) {
                 $qb->andWhere('b.domain IS NULL');
@@ -68,7 +68,10 @@ class BatchRepository extends ServiceEntityRepository
             }
             
         }
-    
+        $sort = $request->query->get('sort','b.id');
+        $direction = $request->query->getAlpha('direction','desc');
+        $qb->orderBy($sort, $direction);
+
         return $qb;
     }
     
