@@ -48,23 +48,27 @@ class BatchRepository extends ServiceEntityRepository
         if ($filterData) {
             if ($filterData->getType()) {
                 $qb->andWhere('b.type = :type')
-                   ->setParameter('type', $filterData->getType()->getId());
+                   ->setParameter('type', $filterData->getType());
             }
             if ($filterData->getBrand()) {
                 $qb->andWhere('b.brand = :brand')
-                   ->setParameter('brand', $filterData->getBrand()->getId());
+                   ->setParameter('brand', $filterData->getBrand());
             }
             if ($filterData->getModel()) {
                 $qb->andWhere('b.model = :model')
-                   ->setParameter('model', $filterData->getModel()->getId());
+                   ->setParameter('model', $filterData->getModel());
             }
             if ($filterData->getServiceCategory()) {
                 $qb->andWhere('b.serviceCategory = :service_category')
-                   ->setParameter('serviceCategory', $filterData->getServiceCategory()->getId());
+                   ->setParameter('serviceCategory', $filterData->getServiceCategory());
             }
             if ($filterData->getService()) {
                 $qb->andWhere('b.service = :service')
-                   ->setParameter('service', $filterData->getService()->getId());
+                   ->setParameter('service', $filterData->getService());
+            }
+            if ($filterData->getAddress()) {
+                $qb->andWhere('b.address = :address')
+                   ->setParameter('address', $filterData->getAddress());
             }
             
         }

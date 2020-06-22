@@ -12,6 +12,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Batch
 {
+    public const ADDRESSES = [
+        1 => 'Удальцова, 60',
+        2 => 'Севастопольский пр-т, 95Б с.1',
+        3 => 'Лобненская, 17 стр 1',
+        4 => 'Научный проезд, 14А стр.8',
+    ];
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -92,6 +98,11 @@ class Batch
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $address;
 
     public function __construct()
     {
@@ -275,6 +286,26 @@ class Batch
     public function setName(?string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getAddress(): ?int
+    {
+        return $this->address;
+    }
+
+    public function getAddressTitle():?string
+    {
+        if (null === $this->address) {
+            return null;
+        }
+        return self::ADDRESSES[$this->address];
+    }
+
+    public function setAddress(?int $address): self
+    {
+        $this->address = $address;
 
         return $this;
     }
