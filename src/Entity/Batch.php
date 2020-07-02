@@ -285,7 +285,7 @@ class Batch
 
     public function setName(?string $name): self
     {
-        $this->name = $name;
+        $this->name = str_replace(['\\','/'],' и ',$name);
 
         return $this;
     }

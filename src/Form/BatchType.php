@@ -17,7 +17,8 @@ class BatchType extends DependedListsType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Название (не обязательно)',
-                'required' => false
+                'required' => false,
+                'help'=> 'Использовать слэши в названии запрещено!'
             ])
             ->add('domain', TextType::class, [
                 'label' => 'Домен (не обязательно)',
