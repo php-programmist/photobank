@@ -59,7 +59,7 @@ class BatchRepository extends ServiceEntityRepository
                    ->setParameter('model', $filterData->getModel());
             }
             if ($filterData->getServiceCategory()) {
-                $qb->andWhere('b.serviceCategory = :service_category')
+                $qb->andWhere('b.serviceCategory = :serviceCategory')
                    ->setParameter('serviceCategory', $filterData->getServiceCategory());
             }
             if ($filterData->getService()) {
