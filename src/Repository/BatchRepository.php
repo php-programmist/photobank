@@ -22,7 +22,8 @@ class BatchRepository extends ServiceEntityRepository
     
     public function getAllFilteredQB(?Batch $filterData,$using,$year_month,Request $request)
     {
-        $qb = $this->createQueryBuilder('b');
+        $qb = $this->createQueryBuilder('b')
+        ->join('b.serviceCategory','serviceCategory');
         if ($using) {
             if ($using == 1 ) {
                 $qb->andWhere('b.domain IS NULL');

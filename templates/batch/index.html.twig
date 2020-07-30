@@ -31,6 +31,8 @@
             <th>Дата создания</th>
             <th>Фотографий ({{ total_photos }})</th>
             <th></th>
+            <th>{{ ordering('b.address','Адрес') }}</th>
+            <th>{{ ordering('serviceCategory.name','Категория') }}</th>
         </tr>
         </thead>
         <tbody>
@@ -42,6 +44,8 @@
                 <td>{{ batch.createdAt ? batch.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ batch.photos|length }} <i class="fa {{ batch.type.icon }}" aria-hidden="true"></i></td>
                 <td><a target="_blank" href="{{ batch.link }}"><i class="fa fa-folder-open"></i></a></td>
+                <td>{{ batch.addressTitle }}</td>
+                <td>{{ batch.serviceCategory }}</td>
             </tr>
         {% else %}
             <tr>
