@@ -24,6 +24,11 @@ class Type
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $icon;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Batch", mappedBy="type")
      */
     private $batches;
@@ -84,5 +89,23 @@ class Type
     public function __toString()
     {
         return (string)$this->getName();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIcon()
+    {
+        return $this->icon;
+    }
+
+    /**
+     * @param mixed $icon
+     * @return Type
+     */
+    public function setIcon($icon):self
+    {
+        $this->icon = $icon;
+        return $this;
     }
 }
