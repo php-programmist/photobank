@@ -17,11 +17,12 @@
     {#Фильтр. Конец#}
     {% if user.validToken %}
         {% if is_granted('ROLE_EDITOR_ADD') %}
-            <a class="btn btn-success my-3" href="{{ path('batch_new') }}">Добавить папку</a>
+            <a class="btn btn-success my-3" target="_blank" href="{{ path('batch_new') }}">Добавить папку</a>
         {% endif %}
     {% else %}
         <a class="btn btn-success my-3" href="{{ path('yandex_auth') }}">Авторизация в Yandex.Disk</a>
     {% endif %}
+    <a class="btn btn-info my-3" href="{{ path('batch_index') }}">Сбросить фильтр</a>
     <table class="table">
         <thead>
         <tr>
