@@ -13,6 +13,7 @@ easy_admin:
             - { label: 'Модели', icon: 'car', entity: 'Model' }
             - { label: 'Категории услуг', icon: 'sitemap', entity: 'ServiceCategory' }
             - { label: 'Услуги', icon: 'wrench', entity: 'Service' }
+            - { label: 'Типы материалов', icon: 'photo', entity: 'Type' }
             - { label: 'Пользователи', icon: 'user', entity: 'User' }
 
     list:
@@ -64,6 +65,18 @@ easy_admin:
                  fields:
                     - { property: 'name', label: 'Название' }
                     - { property: 'serviceCategory', label: 'Категория'}
+        Type:
+            class: App\Entity\Type
+            label: "Тип материала"
+            list:
+                 fields:
+                    - id
+                    - { property: 'name', label: 'Название' }
+                    - { property: 'icon', label: 'Иконка' }
+            form:
+                 fields:
+                    - { property: 'name', label: 'Название' }
+                    - { property: 'icon', label: 'Иконка'}
         User:
             class: App\Entity\User
             label: "Пользователь"
