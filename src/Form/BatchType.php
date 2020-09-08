@@ -38,6 +38,14 @@ class BatchType extends DependedListsType
                 'required' => false,
                 'choices' => array_flip(Batch::ADDRESSES),
                 'placeholder' => 'Не выбран',
+            ])
+            ->add('youtubeUrl', TextType::class, [
+                'label' => 'Ссылка на YouTube',
+                'required' => false
+            ])
+            ->add('location', TextType::class, [
+                'label' => 'Расположение на сайте',
+                'required' => false
             ]);
         parent::buildForm($builder, $options);
     }

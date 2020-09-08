@@ -104,6 +104,16 @@ class Batch
      */
     private $address;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $youtubeUrl;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $location;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -307,6 +317,42 @@ class Batch
     {
         $this->address = $address;
 
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getYoutubeUrl()
+    {
+        return $this->youtubeUrl;
+    }
+
+    /**
+     * @param mixed $youtubeUrl
+     * @return $this
+     */
+    public function setYoutubeUrl($youtubeUrl): self
+    {
+        $this->youtubeUrl = $youtubeUrl;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * @param mixed $location
+     * @return $this
+     */
+    public function setLocation($location): self
+    {
+        $this->location = $location;
         return $this;
     }
 }
