@@ -114,6 +114,11 @@ class Batch
      */
     private $location;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $dzen;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -321,9 +326,9 @@ class Batch
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
-    public function getYoutubeUrl()
+    public function getYoutubeUrl(): ?string
     {
         return $this->youtubeUrl;
     }
@@ -339,9 +344,9 @@ class Batch
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
-    public function getLocation()
+    public function getLocation(): ?string
     {
         return $this->location;
     }
@@ -353,6 +358,24 @@ class Batch
     public function setLocation($location): self
     {
         $this->location = $location;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDzen(): ?string
+    {
+        return $this->dzen;
+    }
+
+    /**
+     * @param mixed $dzen
+     * @return $this
+     */
+    public function setDzen($dzen): self
+    {
+        $this->dzen = $dzen;
         return $this;
     }
 }

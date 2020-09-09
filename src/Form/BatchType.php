@@ -46,6 +46,10 @@ class BatchType extends DependedListsType
             ->add('location', TextType::class, [
                 'label' => 'Расположение на сайте',
                 'required' => false
+            ])
+            ->add('dzen', TextType::class, [
+                'label' => 'Видео на Дзене',
+                'required' => false
             ]);
         parent::buildForm($builder, $options);
     }
