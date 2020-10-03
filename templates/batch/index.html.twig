@@ -23,7 +23,7 @@
         <a class="btn btn-success my-3" href="{{ path('yandex_auth') }}">Авторизация в Yandex.Disk</a>
     {% endif %}
     <a class="btn btn-info my-3" href="{{ path('batch_index') }}">Сбросить фильтр</a>
-    <table class="table">
+    <table class="table sticky">
         <thead>
         <tr>
             <th>{{ ordering('b.id','Id') }}</th>
