@@ -34,6 +34,7 @@
             <th></th>
             <th>{{ ordering('b.address','Адрес') }}</th>
             <th>{{ ordering('serviceCategory.name','Категория') }}</th>
+            <th>Размещено</th>
         </tr>
         </thead>
         <tbody>
@@ -47,6 +48,17 @@
                 <td><a target="_blank" href="{{ batch.link }}"><i class="fa fa-folder-open"></i></a></td>
                 <td>{{ batch.addressTitle }}</td>
                 <td>{{ batch.serviceCategory }}</td>
+                <td>
+                    {% if batch.youtubeUrl %}
+                        <a href="{{ batch.youtubeUrl }}"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+                    {% endif %}
+                    {% if batch.location %}
+                        <a href="{{ batch.location }}"><i class="fa fa-globe" aria-hidden="true"></i></a>
+                    {% endif %}
+                    {% if batch.dzen %}
+                        <a href="{{ batch.dzen }}"><i class="fa fa-yahoo" aria-hidden="true"></i></a>
+                    {% endif %}
+                </td>
             </tr>
         {% else %}
             <tr>
