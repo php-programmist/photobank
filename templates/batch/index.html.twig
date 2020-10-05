@@ -50,13 +50,13 @@
                 <td>{{ batch.serviceCategory }}</td>
                 <td>
                     {% if batch.youtubeUrl %}
-                        <a href="{{ batch.youtubeUrl }}"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+                        <a href="{{ batch.youtubeUrl }}" target="_blank"><i class="fa fa-youtube" aria-hidden="true"></i></a>
                     {% endif %}
                     {% if batch.location %}
-                        <a href="{{ batch.location }}"><i class="fa fa-globe" aria-hidden="true"></i></a>
+                        <a href="{{ batch.location }}" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i></a>
                     {% endif %}
                     {% if batch.dzen %}
-                        <a href="{{ batch.dzen }}"><i class="fa fa-yahoo" aria-hidden="true"></i></a>
+                        <a href="{{ batch.dzen }}" target="_blank"><i class="fa fa-yahoo" aria-hidden="true"></i></a>
                     {% endif %}
                 </td>
             </tr>
